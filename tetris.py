@@ -174,12 +174,6 @@ def draw_text_middle(text, size, color, surface):
    
 def draw_grid(surface, row, col): #(surface, grid)
     
-        for i in range(len(grid)):
-            for j in range(len(grid[i])):
-                pygame.draw.rect(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
-        
-        pygame.draw.rect(surface, (255,0,0), (top_left_x, top_left_y, play_width, play_height), 4)
-
 def clear_rows(grid, locked):
     pass
 
@@ -192,6 +186,12 @@ def draw_window(surface, grid):
     pygame.font.init() 
     font= pygame.font.SysFont('comicsans', 60)
     label= font.render('Tetris', 1, (255,255,255))
+
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            pygame.draw.rect(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
+    
+    pygame.draw.rect(surface, (255,0,0), (top_left_x, top_left_y, play_width, play_height), 4)
 
     surface.blit(label, (top_left_x + play_width/2 - (label.get_width()/2)), 30)
 
