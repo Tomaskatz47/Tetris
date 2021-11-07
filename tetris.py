@@ -167,7 +167,7 @@ def check_lost(positions):
     pass
 
 def get_shape():
-    return random.choice(shapes)
+    return Piece(5, 0, random.choice(shapes)) #5 is middle of 10
 
 def draw_text_middle(text, size, color, surface):  
     pass
@@ -198,7 +198,7 @@ def draw_window(surface, grid):
     draw_grid(surface, grid)
     pygame.display.update()
 
-def main():
+def main(win):
     locked_positions= {}
     grid= create_grid(locked_positions)
 
@@ -212,10 +212,35 @@ def main():
     while run: 
         for event in pygame.event.get():
             if event.type== pygame.QUIT:
-                
+                run= False
 
+            if event.type== pygame.KEYDOWN:
+                if event.key== pygame.K_LEFT:
+                    current_piece.x -= 1
+                    if not(valid_space (current_piece, grid)):
+                        current_piece.x +=1
 
-def main_menu():
-    pass
+                if event.key== pygame.K_RIGHT:
+                    current_piece.x += 1
+                    if not(valid_space (current_piece, grid)):
+                        current_piece.x -=1
 
-main_menu()  # start game
+                if event.key== pygame.K.DOWN:
+                    current_piece.y +=1
+                    if not(valid_space (current_piece, grid)):
+                        current_piece.y -=1
+                if event.key== pygame.K.UP:
+                    current_piece.rotation +=1
+                    if not(valid_space (current_piece, grid)):
+                        current_piece -=1
+
+        draw_window(win, grid)
+
+def main_menu(win):
+    main(win)
+    
+
+win= pygame.display.set_mode((s_width, s_height))
+pygame.display.set_caption('tertis')
+
+main_menu(win)  # start game
