@@ -158,8 +158,14 @@ def create_grid(locked_positions={}):
     return grid
 
 def convert_shape_format(shape):
-    pass
+    positions=[]
+    format= shape.shape[shape.rotatio % len(shape.shape)] #format the different rotation of shapes
 
+    for i, line in enumerate(format):
+        row=list(line)
+        for j, column in enumerate(row):
+            if column =='0':
+                positions.append((shape.x+j, shape.y+i))
 def valid_space(shape, grid):
     pass
 
@@ -172,7 +178,14 @@ def get_shape():
 def draw_text_middle(text, size, color, surface):  
     pass
    
-def draw_grid(surface, row, col): #(surface, grid)
+def draw_grid(surface, row, col): #(surface, grid)  Actually, gonna draw the lines over the grid
+    sx= top_left_x
+    sy= top_left_y
+
+    for i in range(len(grid)):
+        pygame.draw.line(surface, (128,128,128), (sx, sy+ i *block_size), (sx+play_width, sy+i*block_size))
+        for j in range(len(grid[i])):
+            pygame.draw.line(surface, (128,128,128), (sx + j*block_size, sy), (sx+j*block_size, sy+play_width))
     
 def clear_rows(grid, locked):
     pass
